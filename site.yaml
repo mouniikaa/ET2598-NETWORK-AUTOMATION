@@ -1,0 +1,41 @@
+---
+
+- hosts: webservers
+
+  become: yes
+
+  tasks:
+# installing nginx on  servers
+  - name: Installs nginx web server
+
+    apt:
+
+      name: nginx
+
+      state: present
+
+      update_cache: true
+    notify:
+
+    - start nginx
+
+# installing php-fpm on servers!!!
+
+ 
+  - name: Installs php-fpm
+
+    apt:
+
+      name: php-fpm
+
+      state: present
+
+      update_cache: true
+
+    notify:
+
+    - start php7.4-fpm
+
+
+
+
