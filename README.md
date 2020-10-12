@@ -17,3 +17,6 @@ The site consists of 5 hosts which are
 5)Bastion 
 
 
+TASK :-
+
+Ansible-playbook, site.yaml, that deploys the HAproxy, and Nginx on appropriate existing hosts, i.e. the playbook does not need to launch any Virtual Machines
