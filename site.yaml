@@ -6,7 +6,7 @@
 
   tasks:
   
-  - name: Installing NGINX SERVERS ON devA devB and devC !!!!!
+  - name: NGINX INSTALLATION
 
     apt:
 
@@ -19,7 +19,7 @@
 
     - start nginx
 
-  - name: INSTALLING PHP ON devA devB and devC !!!!!
+  - name: PHP INSTALLATION
 
     apt:
 
@@ -31,7 +31,7 @@
 
 
 
-  - name: INSTALLING PHP-FPM  devA devB and devC !!!!!
+  - name: PHP-FPM INSTALLATION
 
     apt:
 
@@ -44,20 +44,19 @@
     notify:
 
     - start php7.4-fpm
-    
 
-  - name: RUNNING PHP FILES ON NGINX :- php7.4-fpm cgi.fix_pathinfo=0 
+  - name: RUNNING PHP FILES ON NGINX 
     lineinfile: dest=/etc/php/7.4/fpm/php.ini regexp='^(.*)cgi.fix_pathinfo=' line=cgi.fix_pathinfo=0
     notify:
     - restart php7.4-fpm
     - restart nginx
 
-  - name: REMOVING "nginx.conf" site at etc/nginx/
+  - name: REMOVING nginx.conf at etc/nginx/
     file:
        path: "/etc/nginx/nginx.conf"
        state: absent
   
-  - name: SETTING UP nginx.conf file at etc/nginx/
+  - name: SETS NGINX CONF FILE 
     template:
        src: "./default1"
        dest: "/etc/nginx/nginx.conf"
@@ -67,19 +66,19 @@
 
 
 
-  - name: REMOVING DEFAULT at etc/nginx/sites-enabled
+  - name: REMOVE NGINX CONF
     file:
        path: "/etc/nginx/sites-enabled/default"
        state: absent
     notify: 
     - restart nginx
 
-  - name: SETTING UP NGINX CONF FILE at etc/nginx/sites-available
+  - name: RUNNING NGINX CONF
     template:
        src: "./default"
        dest: "/etc/nginx/sites-available/default1"
 
-  - name: CHANGES etc/nginx/sites-available to etc/nginx/sites-enable !!!!
+  - name: CHANGING DEFAULT FILE 
     file:
        src: "/etc/nginx/sites-available/default1"
        dest: "/etc/nginx/sites-enabled/default1"
@@ -88,14 +87,14 @@
     - restart nginx
    
 
-  - name: ALLOWING CONNECTION FOR NGINX 
+  - name: ALLOCATION OF PORT 80 
     ufw:
        rule: allow
        port: '80'
        proto: any
 
 
-  - name: SETS UP index.PHP Page at root var/www/html
+  - name: SETTING INDEX.PHP WEBPAGE 
     template:
       src: "./index.php"
       dest: "/var/www/html/index.php"
@@ -108,7 +107,7 @@
 
   handlers:
 
-  - name: STARTING php7.4-fpm
+  - name: start php7.4-fpm
     service:
 
       name: php7.4-fpm
@@ -125,7 +124,7 @@
       state: started
 
 
-  - name: RESTARTING php7.4-fpm
+  - name: restart php7.4-fpm
     service:
 
       name: php7.4-fpm
@@ -145,13 +144,13 @@
   
 
 
-  - name: INSTALLING HAPROXY ON DEVHAPROXY !!!!!
+  - name: HAPROXY INSTALLATION ON DEVHAPROXY 
     apt:
       name: haproxy
       state: present
       update_cache: true
 
-  - name: HAPROXY WITH JINJA2 TEMPLATE file 
+  - name: CHANGING HAPROXY CONFIGURATION 
     template:
       src: ./haproxy.cfg.j2
       dest: /etc/haproxy/haproxy.cfg
@@ -161,7 +160,7 @@
     notify:
     - restart haproxy
     
-  - name: SETTING DEFAULT FLAG TO 1 WHICH ENABLES HAPROXY 
+  - name: ENABLING HAPROXY 
     lineinfile:
       dest: /etc/default/haproxy
       regexp: "^ENABLED"
@@ -172,7 +171,7 @@
 
   handlers:
   
-  - name: RESTART HAPROXY
+  - name: RESTARTING HAPROXY
     service:
         name: haproxy
         state: restarted
