@@ -45,16 +45,16 @@
 
     - start php7.4-fpm
 
-  - name: RUNNING PHP FILES ON NGINX 
-    lineinfile: dest=/etc/php/7.4/fpm/php.ini regexp='^(.*)cgi.fix_pathinfo=' line=cgi.fix_pathinfo=0
-    notify:
-    - restart php7.4-fpm
-    - restart nginx
+#  - name: RUNNING PHP FILES ON NGINX 
+#    lineinfile: dest=/etc/php/7.4/fpm/php.ini regexp='^(.*)cgi.fix_pathinfo=' line=cgi.fix_pathinfo=0
+#   notify:
+#    - restart php7.4-fpm
+#    - restart nginx
 
-  - name: REMOVING nginx.conf at etc/nginx/
-    file:
-       path: "/etc/nginx/nginx.conf"
-       state: absent
+#  - name: REMOVING nginx.conf at etc/nginx/
+#    file:
+#       path: "/etc/nginx/nginx.conf"
+#       state: absent
   
   - name: SETS NGINX CONF FILE 
     template:
@@ -87,11 +87,11 @@
     - restart nginx
    
 
-  - name: ALLOCATION OF PORT 80 
-    ufw:
-       rule: allow
-       port: '80'
-       proto: any
+#  - name: ALLOCATION OF PORT 80 
+#    ufw:
+#       rule: allow
+#       port: '80'
+#       proto: any
 
 
   - name: SETTING INDEX.PHP WEBPAGE 
@@ -171,7 +171,7 @@
 
   handlers:
   
-  - name: RESTARTING HAPROXY
+  - name: restart haproxy
     service:
         name: haproxy
         state: restarted
