@@ -1,30 +1,30 @@
 Host bastionET2598
         IdentityFile ~/.ssh/id_rsa
         user ubuntu
-	ForwardAgent yes
-	ControlMaster auto
-	StrictHostKeyChecking no
-        Hostname 89.45.227.123
+        ForwardAgent yes
+        ControlMaster auto
+        StrictHostKeyChecking no
+        Hostname 45.114.122.85
 Host devA
-	Hostname 10.6.0.189
+        Hostname 10.6.0.241
         user ubuntu
         IdentityFile ~/.ssh/id_rsa
-	StrictHostKeyChecking no
+        StrictHostKeyChecking no
         ProxyCommand ssh bastionET2598 -W %h:%p
 Host devB
-	Hostname 10.6.0.136
-	user ubuntu
-	IdentityFile ~/.ssh/id_rsa
-	StrictHostKeyChecking no
-	ProxyCommand ssh bastionET2598 -W %h:%p
+        Hostname 10.6.0.191
+        user ubuntu
+        IdentityFile ~/.ssh/id_rsa
+        StrictHostKeyChecking no
+        ProxyCommand ssh bastionET2598 -W %h:%p
 Host devC
-        Hostname 10.6.0.221
+        Hostname 10.6.0.76
         user ubuntu
         IdentityFile ~/.ssh/id_rsa
         StrictHostKeyChecking no
         ProxyCommand ssh bastionET2598 -W %h:%p
 Host devhaproxy
-        Hostname 10.6.0.118
+        Hostname 10.6.0.75
         user ubuntu
         IdentityFile ~/.ssh/id_rsa
         StrictHostKeyChecking no
